@@ -370,6 +370,11 @@ class X86Emulator:
                 else:
                     self.eval_instrs(blocks[target], blocks, output)
 
+                 # clobber caller-saved registers (except rax)
+                caller_saved_registers = ['rcx', 'rdx', 'rsi', 'rdi', 'r8', 'r9', 'r10', 'r11']
+                for reg in caller_saved_registers:
+                    self.registers[reg] = 0
+
             elif instr.data == 'retq':
                 return
 
